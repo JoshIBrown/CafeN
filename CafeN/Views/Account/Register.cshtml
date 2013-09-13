@@ -28,6 +28,7 @@
                 @Html.PasswordFor(m => m.ConfirmPassword)
             </li>
         </ol>
+        @Html.HiddenFor(m => m.IsBarista)
         <input type="submit" value="Register" />
     </fieldset>
 }

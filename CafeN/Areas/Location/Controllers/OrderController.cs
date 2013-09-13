@@ -27,6 +27,20 @@ namespace CafeN.Areas.Location.Controllers
             return View(orders);
         }
 
+        [Authorize(Roles="Barista")]
+        public ActionResult Process(int id)
+        {
+            IEnumerable<OrderViewModel> orders;
+
+            using (CafeContext context = new CafeContext())
+            {
+                //fill in parameters to copy order to orderviewmodel including location name
+                orders = context.Orders.Where(o => o.LocationID == id).Select(o => new OrderViewModel {  }).ToList();
+            }
+
+            return View(orders);
+        }
+
 
         //
         // GET: /Location/Order/Create

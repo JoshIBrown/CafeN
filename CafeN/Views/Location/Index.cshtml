@@ -44,7 +44,14 @@
             @Html.DisplayFor(modelItem => item.Zip)
         </td>
         <td>
-            @Html.RouteLink("Place Order", "Location_default", new { controller="Order", action="Create", id=item.LocationID } )
+            @if (User.IsInRole("Barista"))
+            {
+                @Html.RouteLink("Process Orders", "Location_default", new { controller="Order", action="Process", id=item.LocationID } )
+            }
+            else
+            {
+                @Html.RouteLink("Place Order", "Location_default", new { controller="Order", action="Create", id=item.LocationID } )
+            }
         </td>
     </tr>
 }

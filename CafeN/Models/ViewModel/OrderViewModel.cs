@@ -18,5 +18,6 @@ namespace CafeN.Models.ViewModel
         public DateTime? CancelledAt { get; set; }
         public DateTime? StartedAt { get; set; }
         public DateTime? CompletedAt { get; set; }
+        public string LocationName { get; set; }
     }
 }

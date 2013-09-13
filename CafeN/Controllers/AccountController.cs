@@ -59,9 +59,16 @@ namespace CafeN.Controllers
         // GET: /Account/Register
 
         [AllowAnonymous]
-        public ActionResult Register()
+        public ActionResult Register(string type)
         {
-            return View();
+            RegisterModel model = new RegisterModel();
+
+            if (type == "barista")
+            {
+                model.IsBarista = true;
+            }
+
+            return View(model);
         }
 
         //
@@ -78,6 +85,11 @@ namespace CafeN.Controllers
                 try
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
+                    if (model.IsBarista)
+                    {
+                        Roles.AddUserToRole(model.UserName, "Barista");
+                    }
+
                     WebSecurity.Login(model.UserName, model.Password);
                     return RedirectToAction("Index", "Home");
                 }

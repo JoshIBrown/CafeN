@@ -8,6 +8,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.Security;
 using WebMatrix.WebData;
 
 namespace CafeN
@@ -31,6 +32,10 @@ namespace CafeN
             CafeContext cc = new CafeContext();
             cc.Database.Initialize(true);
             WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+            if (!Roles.RoleExists("Barista"))
+            {
+                Roles.CreateRole("Barista");
+            }
         }
     }
 }
