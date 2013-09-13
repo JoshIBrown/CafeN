@@ -44,7 +44,7 @@
             @Html.DisplayFor(modelItem => item.Zip)
         </td>
         <td>
-            @Html.ActionLink("Place Order", "CreateOrder", new { id=item.LocationID } ) 
+            @Html.RouteLink("Place Order", "Location_default", new { controller="Order", action="Create", id=item.LocationID } )
         </td>
     </tr>
 }

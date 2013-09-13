@@ -1,0 +1,50 @@
+﻿@model CafeN.Models.ViewModel.OrderViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";    
+    ViewBag.Title = "Place an order.";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <div class="editor-label">
+            @Html.Label("Size")
+        </div>
+        <div class="editor-field">
+
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("Bean")
+        </div>
+        <div class="editor-field">
+
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("Type")
+        </div>
+        <div class="editor-field">
+
+        </div>
+
+        <p>
+            @Html.HiddenFor(m => m.LocationID)
+            <input type="submit" value="CreateOrder" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

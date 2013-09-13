@@ -6,40 +6,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CafeN.Models;
+using CafeN.Models.ViewModel;
 
 namespace CafeN.Controllers
 {
     public class LocationController : Controller
     {
         private CafeContext db = new CafeContext();
-
-        //
-        // GET: /Order/Create
-        [Authorize]
-        public ActionResult CreateOrder(int id)
-        {
-            Order o = new Order(id);
-
-            return View(o);
-        }
-
-        //
-        // POST: /Order/Create
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateOrder(int id, Order order)
-        {
-            if (ModelState.IsValid)
-            {
-                order.CreatedAt = DateTime.Now;
-                db.Orders.Add(order);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(order);
-        }
 
         //
         // GET: /Location/

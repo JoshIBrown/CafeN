@@ -8,15 +8,15 @@ using System.Web.Security;
 
 namespace CafeN.Models
 {
-    public class UsersContext : DbContext
-    {
-        public UsersContext()
-            : base("DefaultConnection")
-        {
-        }
+    //public class CafeContext : DbContext
+    //{
+    //    public CafeContext()
+    //        : base("DefaultConnection")
+    //    {
+    //    }
 
-        public DbSet<UserProfile> UserProfiles { get; set; }
-    }
+    //    public DbSet<UserProfile> UserProfiles { get; set; }
+    //}
 
     [Table("UserProfile")]
     public class UserProfile

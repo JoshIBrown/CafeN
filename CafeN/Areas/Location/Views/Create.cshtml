@@ -1,4 +1,4 @@
-﻿@model CafeN.Models.Order
+﻿@model CafeN.Models.ViewModel.OrderViewModel
 
 @{
     ViewBag.Title = "Place an order.";
@@ -34,6 +34,7 @@
         </div>
 
         <p>
+            @Html.HiddenFor(m => m.LocationID)
             <input type="submit" value="CreateOrder" />
         </p>
     </fieldset>

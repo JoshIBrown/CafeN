@@ -12,7 +12,7 @@
         <header>
             <div class="content-wrapper">
                 <div class="float-left">
-                    <p class="site-title">@Html.ActionLink("Cafe Nordstrom", "Index", "Home")</p>
+                    <p class="site-title">@Html.RouteLink("Cafe Nordstrom", "Default", new { controller="Home", action="Index" })</p>
                 </div>
                 <div class="float-right">
                     <section id="login">
