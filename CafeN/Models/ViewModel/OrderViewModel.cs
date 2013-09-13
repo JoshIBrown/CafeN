@@ -10,9 +10,6 @@ namespace CafeN.Models.ViewModel
         public int OrderID { get; set; }
         public int UserID { get; set; }
         public int LocationID { get; set; }
-        //public string Size;
-        //public string Bean;
-        //public string Type;
         public DateTime? CreatedAt { get; set; }
         public DateTime? PickUpAt { get; set; }
         public DateTime? CancelledAt { get; set; }

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace CafeN.Models
 {
@@ -10,9 +7,6 @@ namespace CafeN.Models
         public int OrderID { get; set; }
         public int UserID { get; set; }
         public int LocationID { get; set; }
-        //public string Size;
-        //public string Bean;
-        //public string Type;
         public DateTime CreatedAt { get; set; }
         public DateTime? PickUpAt { get; set; }
         public DateTime? CancelledAt { get; set; }

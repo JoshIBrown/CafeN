@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Data.Entity;
-
-
-namespace CafeN.Models
+﻿namespace CafeN.Models
 {
     public class Location
     {
