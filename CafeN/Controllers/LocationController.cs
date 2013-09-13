@@ -12,14 +12,14 @@ namespace CafeN.Controllers
 {
     public class LocationController : Controller
     {
-        private CafeContext db = new CafeContext();
+        private CafeContext context = new CafeContext();
 
         //
         // GET: /Location/
 
         public ActionResult Index()
         {
-            return View(db.Locations.ToList());
+            return View(context.Locations.ToList());
         }
 
         //
@@ -27,7 +27,7 @@ namespace CafeN.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Location location = db.Locations.Find(id);
+            Location location = context.Locations.Find(id);
             if (location == null)
             {
                 return HttpNotFound();
@@ -52,8 +52,8 @@ namespace CafeN.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Locations.Add(location);
-                db.SaveChanges();
+                context.Locations.Add(location);
+                context.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +65,7 @@ namespace CafeN.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Location location = db.Locations.Find(id);
+            Location location = context.Locations.Find(id);
             if (location == null)
             {
                 return HttpNotFound();
@@ -82,8 +82,8 @@ namespace CafeN.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(location).State = EntityState.Modified;
-                db.SaveChanges();
+                context.Entry(location).State = EntityState.Modified;
+                context.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(location);
@@ -94,7 +94,7 @@ namespace CafeN.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Location location = db.Locations.Find(id);
+            Location location = context.Locations.Find(id);
             if (location == null)
             {
                 return HttpNotFound();
@@ -109,15 +109,15 @@ namespace CafeN.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Location location = db.Locations.Find(id);
-            db.Locations.Remove(location);
-            db.SaveChanges();
+            Location location = context.Locations.Find(id);
+            context.Locations.Remove(location);
+            context.SaveChanges();
             return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
+            context.Dispose();
             base.Dispose(disposing);
         }
     }

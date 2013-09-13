@@ -29,8 +29,8 @@ namespace CafeN
             AuthConfig.RegisterAuth();
 
             Database.SetInitializer(new CafeContextInitializer());
-            CafeContext cc = new CafeContext();
-            cc.Database.Initialize(true);
+            CafeContext context = new CafeContext();
+            context.Database.Initialize(true);
             WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
             if (!Roles.RoleExists("Barista"))
             {

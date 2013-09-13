@@ -181,6 +181,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Location\Controllers\Order2Controller.cs" />
     <Compile Include="Areas\Location\Controllers\OrderController.cs" />
     <Compile Include="Areas\Location\LocationAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -257,6 +258,12 @@
     <Content Include="Areas\Location\Views\Order\Create.cshtml" />
     <Content Include="Areas\Location\Views\Order\Index.cshtml" />
     <Content Include="Areas\Location\Views\Order\Process.cshtml" />
+    <Content Include="Areas\Location\Views\Order\Start.cshtml" />
+    <Content Include="Areas\Location\Views\Order2\Index.cshtml" />
+    <Content Include="Areas\Location\Views\Order2\Details.cshtml" />
+    <Content Include="Areas\Location\Views\Order2\Create.cshtml" />
+    <Content Include="Areas\Location\Views\Order2\Edit.cshtml" />
+    <Content Include="Areas\Location\Views\Order2\Delete.cshtml" />
     <None Include="Properties\PublishProfiles\cafen - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\cafen - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />

@@ -11,6 +11,20 @@ namespace CafeN.Areas.Location.Controllers
 {
     public class OrderController : Controller
     {
+        public ActionResult Start(int id)
+        {
+            using (CafeContext context = new CafeContext())
+            {
+                Order toStart = context.Orders.Single(order => order.OrderID == id);
+                toStart.StartedAt = DateTime.Now;
+                context.SaveChanges();
+
+                ViewBag.UserName = context.UserProfiles.FirstOrDefault(user => user.UserId == toStart.UserID).UserName;
+
+                return View(OrderToViewModel(toStart));
+            }
+        }
+
         //
         // GET: /Location/Order/
 
@@ -31,22 +45,23 @@ namespace CafeN.Areas.Location.Controllers
         public ActionResult Process(int id)
         {
             IEnumerable<OrderViewModel> orders;
-
             using (CafeContext context = new CafeContext())
             {
-                //fill in parameters to copy order to orderviewmodel including location name
-                orders = context.Orders.Where(o => o.LocationID == id).Select(ovm => new OrderViewModel() 
-                { 
-                    CancelledAt = ovm.CancelledAt, 
-                    CompletedAt = ovm.CompletedAt, 
-                    CreatedAt = ovm.CreatedAt, 
-                    LocationID = ovm.LocationID, 
-                    OrderID = ovm.OrderID, 
-                    PickUpAt = ovm.PickUpAt, 
-                    StartedAt = ovm.StartedAt, 
+                //set location name
+                ViewBag.LocationName = context.Locations.FirstOrDefault(loc => loc.LocationID == id).Name;
+
+                orders = context.Orders.Where(o => o.LocationID == id).Select(ovm => new OrderViewModel()
+                {
+                    CancelledAt = ovm.CancelledAt,
+                    CompletedAt = ovm.CompletedAt,
+                    CreatedAt = ovm.CreatedAt,
+                    LocationID = ovm.LocationID,
+                    OrderID = ovm.OrderID,
+                    PickUpAt = ovm.PickUpAt,
+                    StartedAt = ovm.StartedAt,
                     UserID = ovm.UserID,
-                    LocationName = context.Locations.FirstOrDefault(loc => loc.LocationID == ovm.LocationID).Name
-                }).ToList();
+                    UserName = context.UserProfiles.FirstOrDefault(user => user.UserId == ovm.UserID).UserName
+                }).ToList().OrderBy(order => order.PickUpAt);
             }
 
             return View(orders);
@@ -70,19 +85,36 @@ namespace CafeN.Areas.Location.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(OrderViewModel order)
         {
-            using (CafeContext db = new CafeContext())
+            using (CafeContext context = new CafeContext())
             {
                 if (ModelState.IsValid)
                 {
                     Order toAdd = new Order { LocationID = order.LocationID, PickUpAt = order.PickUpAt, CreatedAt = DateTime.Now, UserID = WebSecurity.GetUserId(User.Identity.Name) };
 
-                    db.Orders.Add(toAdd);
-                    db.SaveChanges();
+                    context.Orders.Add(toAdd);
+                    context.SaveChanges();
                     return RedirectToAction("Index");
                 }
             }
 
             return View(order);
+        }
+
+        public OrderViewModel OrderToViewModel(Order order)
+        {
+            OrderViewModel ovm = new OrderViewModel()
+                {
+                    CancelledAt = order.CancelledAt,
+                    CompletedAt = order.CompletedAt,
+                    CreatedAt = order.CreatedAt,
+                    LocationID = order.LocationID,
+                    OrderID = order.OrderID,
+                    PickUpAt = order.PickUpAt,
+                    StartedAt = order.StartedAt,
+                    UserID = order.UserID
+                };
+
+            return ovm;
         }
     }
 }

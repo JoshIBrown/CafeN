@@ -5,24 +5,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Store's Orders</h2>
+<h2>@ViewBag.LocationName's Orders</h2>
 
 <table>
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.UserID)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LocationID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.PickUpAt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CancelledAt)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.StartedAt)
@@ -30,38 +24,35 @@
         <th>
             @Html.DisplayNameFor(model => model.CompletedAt)
         </th>
+
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LocationID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedAt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PickUpAt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CancelledAt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartedAt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CompletedAt)
-        </td>
-        <td>
-@*            @Html.ActionLink("Edit", "Edit", new { id=item.OrderID }) |
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PickUpAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompletedAt)
+            </td>
+
+            <td>
+                @*            @Html.ActionLink("Edit", "Edit", new { id=item.OrderID }) |
             @Html.ActionLink("Details", "Details", new { id=item.OrderID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.OrderID })*@
-        </td>
-    </tr>
-}
-
+                @Html.ActionLink("Start", "Start", new { id=item.OrderID })
+            </td>
+        </tr>
+    }
 </table>

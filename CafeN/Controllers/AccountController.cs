@@ -273,15 +273,15 @@ namespace CafeN.Controllers
             if (ModelState.IsValid)
             {
                 // Insert a new user into the database
-                using (CafeContext db = new CafeContext())
+                using (CafeContext context = new CafeContext())
                 {
-                    UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
+                    UserProfile user = context.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
                     // Check if user already exists
                     if (user == null)
                     {
                         // Insert name into the profile table
-                        db.UserProfiles.Add(new UserProfile { UserName = model.UserName });
-                        db.SaveChanges();
+                        context.UserProfiles.Add(new UserProfile { UserName = model.UserName });
+                        context.SaveChanges();
 
                         OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
                         OAuthWebSecurity.Login(provider, providerUserId, createPersistentCookie: false);
