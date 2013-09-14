@@ -181,7 +181,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Areas\Location\Controllers\Order2Controller.cs" />
     <Compile Include="Areas\Location\Controllers\OrderController.cs" />
     <Compile Include="Areas\Location\LocationAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
