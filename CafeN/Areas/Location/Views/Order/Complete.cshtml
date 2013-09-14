@@ -1,0 +1,32 @@
+﻿@model CafeN.Models.ViewModel.OrderViewModel
+
+@{
+    ViewBag.Title = "Complete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.UserName's Order</h2>
+
+<fieldset>
+    <legend>Order</legend>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.UserID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UserID)
+    </div>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.PickUpAt)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PickUpAt)
+    </div>
+
+    <div class="display-label">
+        @Html.ActionLink("Complete Order", "CompleteOrder", new { id = Model.OrderID })
+    </div>
+
+
+</fieldset>
+

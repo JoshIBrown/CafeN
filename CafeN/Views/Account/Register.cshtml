@@ -4,7 +4,14 @@
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
+    @if (Request["type"] == "barista")
+    {
+        <h1>@ViewBag.Title as a barista.</h1>
+    }
+    else
+    {
+        <h1>@ViewBag.Title.</h1>
+    }
 </hgroup>
 
 @using (Html.BeginForm()) {

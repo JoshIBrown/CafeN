@@ -11,6 +11,20 @@ namespace CafeN.Areas.Location.Controllers
 {
     public class OrderController : Controller
     {
+        public ActionResult Complete(int id)
+        {
+            using (CafeContext context = new CafeContext())
+            {
+                Order toStart = context.Orders.Single(order => order.OrderID == id);
+                toStart.CompletedAt = DateTime.Now;
+                context.SaveChanges();
+
+                ViewBag.UserName = context.UserProfiles.FirstOrDefault(user => user.UserId == toStart.UserID).UserName;
+
+                return View(OrderToViewModel(toStart));
+            }
+        }
+        
         public ActionResult Start(int id)
         {
             using (CafeContext context = new CafeContext())

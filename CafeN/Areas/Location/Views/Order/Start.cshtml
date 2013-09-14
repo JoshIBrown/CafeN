@@ -11,52 +11,13 @@
     <legend>Order</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.UserID)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.UserID)
+        1 cup of coffee.
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.LocationID)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.LocationID)
+        @Html.ActionLink("Complete Order", "Complete", new { id = Model.OrderID })
     </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.CreatedAt)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.CreatedAt)
-    </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.PickUpAt)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.PickUpAt)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.CancelledAt)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.CancelledAt)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.StartedAt)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.StartedAt)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.CompletedAt)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.CompletedAt)
-    </div>
 </fieldset>
 
