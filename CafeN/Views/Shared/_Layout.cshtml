@@ -20,6 +20,10 @@
                     </section>
                     <nav>
                         <ul id="menu">
+                            @if ((!Request.IsAuthenticated) || (Request.IsAuthenticated && !User.IsInRole("Barista")))
+                            {
+                                <li>@Html.RouteLink("Browse Locations", "Default", new { controller="Location", action="Index" })</li>
+                            }
 @*                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
                             <li>@Html.ActionLink("About", "About", "Home")</li>
                             <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
