@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<CafeN.Models.ViewModel.OrderViewModel>
 
 @{
-    ViewBag.Title = "Process";
+    ViewBag.Title = ViewBag.LocationName + "'s Orders";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@ViewBag.LocationName's Orders</h2>
+<h2>@ViewBag.LocationName's Orders.</h2>
 
 <table>
     <tr>

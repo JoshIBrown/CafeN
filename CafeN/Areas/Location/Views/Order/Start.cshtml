@@ -1,11 +1,11 @@
 ﻿@model CafeN.Models.ViewModel.OrderViewModel
 
 @{
-    ViewBag.Title = "Start";
+    ViewBag.Title = ViewBag.UserName + "'s Order";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@ViewBag.UserName's Order</h2>
+<h2>@ViewBag.UserName's Order.</h2>
 
 <fieldset>
     <legend>Order</legend>

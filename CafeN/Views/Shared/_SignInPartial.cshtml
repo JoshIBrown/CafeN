@@ -1,7 +1,7 @@
 ﻿@model CafeN.Models.LoginModel
 
 <section id="loginForm">
-<h2>Welcome to Cafe Nordstrom!</h2>
+<h2>Welcome to Cafe N!</h2>
 @using (Html.BeginRouteForm("Default", new { controller="Account", action="Login", ReturnUrl = Url.Action("Index", "Location") })) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
