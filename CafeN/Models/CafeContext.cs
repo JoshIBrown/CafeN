@@ -31,7 +31,6 @@ namespace CafeN.Models
                 context.Locations.Add(new Location { Name = "Cafe 4", Address = "4th & Madison", City = "Seattle", State = "WA", Zip = "98101" });
             }
 
-
             base.Seed(context);
         }
     }
