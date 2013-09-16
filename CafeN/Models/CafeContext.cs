@@ -19,7 +19,7 @@ namespace CafeN.Models
     }
 
 
-    public class CafeContextInitializer : DropCreateDatabaseIfModelChanges<CafeContext>
+    public class CafeContextInitializer : DropCreateDatabaseAlways<CafeContext>
     {
         protected override void Seed(CafeContext context)
         {

@@ -16,6 +16,7 @@ namespace CafeN.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
         public string UserName { get; set; }
+        public string DefaultOrderDetails { get; set; }
     }
 
     public class RegisterExternalLoginModel

@@ -115,7 +115,7 @@ h5, h6 {
     }
 
 header .content-wrapper {
-    padding-top: 20px; 
+    padding-top: 0px; 
 }
 
 footer {
@@ -603,7 +603,7 @@ tr.pager td {
 
     /* logo */
     header .site-title {
-        margin: 10px;
+        margin: 0px;
         text-align: center;
     }
 

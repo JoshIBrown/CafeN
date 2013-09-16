@@ -16,7 +16,9 @@ namespace CafeN.Areas.Location.Controllers
             using (CafeContext context = new CafeContext())
             {
                 Order toStart = context.Orders.Single(order => order.OrderID == id);
-                toStart.CompletedAt = DateTime.Now;
+                TimeZoneInfo tz = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
+                DateTime pacificTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, tz);
+                toStart.CompletedAt = pacificTime;
                 context.SaveChanges();
 
                 ViewBag.UserName = context.UserProfiles.FirstOrDefault(user => user.UserId == toStart.UserID).UserName;
@@ -30,7 +32,9 @@ namespace CafeN.Areas.Location.Controllers
             using (CafeContext context = new CafeContext())
             {
                 Order toStart = context.Orders.Single(order => order.OrderID == id);
-                toStart.StartedAt = DateTime.Now;
+                TimeZoneInfo tz = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
+                DateTime pacificTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, tz);
+                toStart.StartedAt = pacificTime;
                 context.SaveChanges();
 
                 ViewBag.UserName = context.UserProfiles.FirstOrDefault(user => user.UserId == toStart.UserID).UserName;
@@ -44,12 +48,24 @@ namespace CafeN.Areas.Location.Controllers
 
         public ActionResult Index()
         {
-            IEnumerable<Order> orders;
+            IEnumerable<OrderViewModel> orders;
 
             using (CafeContext context = new CafeContext())
             {
                 int userID = WebSecurity.GetUserId(User.Identity.Name);
-                orders = context.Orders.Where(o => o.UserID == userID).ToList();
+                orders = context.Orders.Where(o => o.UserID == userID).Select(ovm => new OrderViewModel()
+                {
+                    CancelledAt = ovm.CancelledAt,
+                    CompletedAt = ovm.CompletedAt,
+                    CreatedAt = ovm.CreatedAt,
+                    LocationID = ovm.LocationID,
+                    OrderID = ovm.OrderID,
+                    PickUpAt = ovm.PickUpAt,
+                    StartedAt = ovm.StartedAt,
+                    UserID = ovm.UserID,
+                    UserName = context.UserProfiles.FirstOrDefault(user => user.UserId == ovm.UserID).UserName,
+                    LocationName = context.Locations.FirstOrDefault(loc => loc.LocationID == ovm.LocationID).Name
+                }).ToList();
             }
 
             return View(orders);
@@ -87,6 +103,11 @@ namespace CafeN.Areas.Location.Controllers
         [Authorize]
         public ActionResult Create(int id)
         {
+            using (CafeContext context = new CafeContext())
+            {
+                ViewBag.LocationName = context.Locations.FirstOrDefault(loc => loc.LocationID == id).Name;
+            }
+
             OrderViewModel o = new OrderViewModel { LocationID = id };
 
             return View(o);
@@ -103,7 +124,13 @@ namespace CafeN.Areas.Location.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Order toAdd = new Order { LocationID = order.LocationID, PickUpAt = order.PickUpAt, CreatedAt = DateTime.Now, UserID = WebSecurity.GetUserId(User.Identity.Name) };
+                    TimeZoneInfo tz = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
+                    DateTime pacificTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, tz);
+                    if (order.PickUpAt.HasValue)
+                    {
+                        order.PickUpAt = TimeZoneInfo.ConvertTimeFromUtc(order.PickUpAt.Value.ToUniversalTime(), tz);
+                    }
+                    Order toAdd = new Order { LocationID = order.LocationID, PickUpAt = order.PickUpAt, CreatedAt = pacificTime, UserID = WebSecurity.GetUserId(User.Identity.Name) };
 
                     context.Orders.Add(toAdd);
                     context.SaveChanges();

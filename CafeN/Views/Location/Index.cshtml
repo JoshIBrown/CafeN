@@ -6,54 +6,22 @@
 
 <h2>Browse Locations</h2>
 
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.City)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.State)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Zip)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.City)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.State)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Zip)
-        </td>
-        <td>
-            @if (User.IsInRole("Barista"))
-            {
-                @Html.RouteLink("Process Orders", "Location_default", new { controller="Order", action="Process", id=item.LocationID } )
-            }
-            else
-            {
-                @Html.RouteLink("Place Order", "Location_default", new { controller="Order", action="Create", id=item.LocationID } )
-            }
-        </td>
-    </tr>
+@foreach (var item in Model)
+{
+    <div style="border: 1px dashed black; width: 175px; float: left; margin: 5px; background: #ddd;">
+        @Html.DisplayFor(modelItem => item.Name)<br />
+        @Html.DisplayFor(modelItem => item.Address)<br />
+        @if (User.IsInRole("Barista"))
+        {
+            @Html.RouteLink("Process Orders", "Location_default", new { controller = "Order", action = "Process", id = item.LocationID })
+        }
+        else
+        {
+            @Html.RouteLink("Place Order", "Location_default", new { controller = "Order", action = "Create", id = item.LocationID })
+        }
+    </div>
 }
+
+
 
 </table>

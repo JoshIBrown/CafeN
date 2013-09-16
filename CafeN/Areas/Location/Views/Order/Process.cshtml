@@ -7,46 +7,19 @@
 
 <h2>@ViewBag.LocationName's Orders.</h2>
 
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PickUpAt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StartedAt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CompletedAt)
-        </th>
+@foreach (var item in Model)
+{
+    <div style="border: 1px dashed black; width: 175px; float: left; margin: 5px; background: #ddd;">
+        Name: @Html.DisplayFor(modelItem => item.UserName)<br />
+        Pickup Time: @Html.DisplayFor(modelItem => item.PickUpAt)<br />
+        @if (!String.IsNullOrWhiteSpace(item.CompletedAt.ToString()))
+        {
+            @Html.Raw("Completed");
+        }
+        else
+        {
+            @Html.ActionLink("Start", "Start", new { id = item.OrderID });
+        }
+    </div>
+}
 
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PickUpAt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartedAt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CompletedAt)
-            </td>
-
-            <td>
-                @*            @Html.ActionLink("Edit", "Edit", new { id=item.OrderID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.OrderID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.OrderID })*@
-                @Html.ActionLink("Start", "Start", new { id=item.OrderID })
-            </td>
-        </tr>
-    }
-</table>
