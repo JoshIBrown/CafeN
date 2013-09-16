@@ -267,7 +267,6 @@
     <Content Include="Areas\Location\Views\Order\Index.cshtml" />
     <Content Include="Areas\Location\Views\Order\Process.cshtml" />
     <Content Include="Areas\Location\Views\Order\Start.cshtml" />
-    <Content Include="Areas\Location\Views\Order\Complete.cshtml" />
     <None Include="Properties\PublishProfiles\cafen - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\cafen - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />

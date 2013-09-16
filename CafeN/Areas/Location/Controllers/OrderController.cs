@@ -21,7 +21,7 @@ namespace CafeN.Areas.Location.Controllers
 
                 ViewBag.UserName = context.UserProfiles.FirstOrDefault(user => user.UserId == toStart.UserID).UserName;
 
-                return View(OrderToViewModel(toStart));
+                return RedirectToAction("Process", "Order", new { id=toStart.LocationID});
             }
         }
         
