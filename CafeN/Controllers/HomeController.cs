@@ -19,5 +19,11 @@ namespace CafeN.Controllers
 
             return View();
         }
+
+        public ActionResult Barista()
+        {
+            return View();
+        }
+
     }
 }

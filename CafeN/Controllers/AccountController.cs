@@ -17,6 +17,47 @@ namespace CafeN.Controllers
     {
         //
         // GET: /Account/Login
+        // partial view result is needed here because we are hitting the controller on get and injecting data for the location dropdown
+        [AllowAnonymous]
+        public PartialViewResult BaristaLogin(string returnUrl)
+        {
+            BaristaLoginModel model = new BaristaLoginModel();
+            using (CafeContext context = new CafeContext())
+            {
+                model.LocationChoices = context.Locations.ToList().Select(loc => new SelectListItem { Text = loc.Name, Value = loc.LocationID.ToString() });
+            }
+
+            ViewBag.ReturnUrl = returnUrl;
+            return PartialView("_BaristaSignInPartial", model);
+        }
+
+        //
+        // POST: /Account/Login
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult BaristaLogin(BaristaLoginModel model, string returnUrl)
+        {
+            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+            {
+                return RedirectToRoute("Location_default", new { controller = "Order", action = "Process", id = model.SelectedLocationID });
+            }
+
+            // If we got this far, something failed, redisplay form
+            ModelState.AddModelError("", "The user name or password provided is incorrect.");
+
+            //this is here in case we fail login we repopulate to avoid error
+            using (CafeContext context = new CafeContext())
+            {
+                model.LocationChoices = context.Locations.ToList().Select(loc => new SelectListItem { Text = loc.Name, Value = loc.LocationID.ToString() });
+            }
+
+            return PartialView("_BaristaSignInPartial", model);
+        }
+
+        //
+        // GET: /Account/Login
 
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)

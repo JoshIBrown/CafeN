@@ -1,7 +1,7 @@
 ﻿@model CafeN.Models.ViewModel.OrderViewModel
 
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";    
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Place an Order";
 }
 
@@ -17,7 +17,15 @@
             1 Cup of Coffee.
         </div>
 
+        <div class="editor-label">
+            @Html.LabelFor(m => m.PickUpAt)
+        </div>
+        <div class="editor-field">
+            <input id="spinner" name="spinner" value="" />
+        </div>
+        
         <p>
+            @Html.HiddenFor(m => m.PickUpAt)
             @Html.HiddenFor(m => m.LocationID)
             <input type="submit" value="Create Order" />
         </p>
@@ -29,5 +37,49 @@
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/Scripts/jquery.globalize/globalize.js")
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+    @Scripts.Render("~/Scripts/moment.js")
+    <script>
+        $.widget("ui.timespinner", $.ui.spinner, {
+            options: {
+                // seconds
+                step: 60 * 1000,
+                // hours
+                page: 60
+            },
+
+            _parse: function (value) {
+                if (typeof value === "string") {
+                    // already a timestamp
+                    if (Number(value) == value) {
+                        return Number(value);
+                    }
+                    return +Globalize.parseDate(value);
+                }
+                return value;
+            },
+
+            _format: function (value) {
+                return Globalize.format(new Date(value), "t");
+            }
+        });
+
+        $(function () {
+            $("#spinner").val(moment(Date.now()).format('h:mm a'));
+            $('#PickUpAt').val(moment(Date.now()).format());
+            $("#spinner").timespinner({
+                stop: function (event, ui) {
+                    var time = $('#spinner').val();
+                    var stamp = moment(Date.now()).format('MM/DD/YYYY') + ' ' + time;
+                    var toSave = moment(stamp).format();
+                    $('#PickUpAt').val(toSave);
+                }
+            });
+
+
+            
+        });
+    </script>
 }

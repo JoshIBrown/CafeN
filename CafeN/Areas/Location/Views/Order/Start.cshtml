@@ -13,11 +13,72 @@
     <div class="display-label">
         1 cup of coffee.
     </div>
+    <br /><br />
 
-    <div class="display-label">
+    <div style="font-size: 2.5em; border: 1px solid black; width:300px;" id="timer">0 seconds</div>
+    <br /><br />
+        <div style="font-size: 2.5em; border: 1px solid black; width:300px;">
         @Html.ActionLink("Complete Order", "Complete", new { id = Model.OrderID })
     </div>
 
-
 </fieldset>
 
+@section scripts {
+
+    <script type="text/javascript">
+        $(function () {
+            var index = 0;
+            var obj = new Timer();
+            obj.Interval = 1000;
+            obj.Tick = timer_tick;
+            obj.Start();
+
+            function timer_tick() {
+                index = index + 1;
+                $('#timer').html(index + ' seconds');
+
+                if (index == 1000) {
+                    obj.Stop();
+                }
+            }
+        });
+
+        // Declaring class "Timer"
+        var Timer = function () {
+            // Property: Frequency of elapse event of the timer in millisecond
+            this.Interval = 1000;
+
+            // Property: Whether the timer is enable or not
+            this.Enable = new Boolean(false);
+
+            // Event: Timer tick
+            this.Tick;
+
+            // Member variable: Hold interval id of the timer
+            var timerId = 0;
+
+            // Member variable: Hold instance of this class
+            var thisObject;
+
+            // Function: Start the timer
+            this.Start = function () {
+                this.Enable = new Boolean(true);
+
+                thisObject = this;
+                if (thisObject.Enable) {
+                    thisObject.timerId = setInterval(
+                    function () {
+                        thisObject.Tick();
+                    }, thisObject.Interval);
+                }
+            };
+
+            // Function: Stops the timer
+            this.Stop = function () {
+                thisObject.Enable = new Boolean(false);
+                clearInterval(thisObject.timerId);
+            };
+
+        };
+    </script>
+}
