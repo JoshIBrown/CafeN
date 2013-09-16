@@ -1,8 +1,8 @@
 ﻿@model CafeN.Models.BaristaLoginModel
 
 <section id="loginForm">
-<h2>Welcome to Cafe N!</h2>
-@using (Html.BeginRouteForm("Default", new { controller = "Account", action = "BaristaLogin"}))
+<h2>Barista Sign In.</h2>
+@using (Html.BeginRouteForm("Default", new { controller = "Account", action = "BaristaLogin" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)

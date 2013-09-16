@@ -129,10 +129,13 @@ namespace CafeN.Controllers
                     if (model.IsBarista)
                     {
                         Roles.AddUserToRole(model.UserName, "Barista");
+                        return RedirectToAction("Index", "Barista");
                     }
-
-                    WebSecurity.Login(model.UserName, model.Password);
-                    return RedirectToAction("Index", "Home");
+                    else
+                    {
+                        WebSecurity.Login(model.UserName, model.Password);
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 catch (MembershipCreateUserException e)
                 {

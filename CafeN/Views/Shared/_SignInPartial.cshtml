@@ -2,7 +2,8 @@
 
 <section id="loginForm">
 <h2>Welcome to Cafe N!</h2>
-@using (Html.BeginRouteForm("Default", new { controller="Account", action="Login", ReturnUrl = Url.Action("Index", "Location") })) {
+@using (Html.BeginRouteForm("Default", new { controller = "Account", action = "Login" }))
+{
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
